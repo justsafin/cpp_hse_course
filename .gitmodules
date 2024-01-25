@@ -1,0 +1,9 @@
+[submodule "third-party/sentencepiece"]
+	path = third-party/sentencepiece
+	url = https://github.com/google/sentencepiece
+[submodule "third-party/protobuf"]
+	path = third-party/protobuf
+	url = https://github.com/protocolbuffers/protobuf
+[submodule "third-party/Catch2"]
+	path = third-party/Catch2
+	url = https://github.com/catchorg/Catch2

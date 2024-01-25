@@ -1,0 +1,6 @@
+build
+bin
+.tmp
+projects/protogen/cpp
+projects/protogen/py
+__pycache__

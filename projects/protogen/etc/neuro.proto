@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package text_process;
+
+message NeuroRequest
+{
+    uint32 qid   = 1; // Некоторый произвольный идентификатор
+    string query = 2;
+}
+
+message NeuroAnswer
+{
+    uint32 qid               = 1; // Соответствует NeuroRequest::qid
+    repeated float embedding = 2;
+}
