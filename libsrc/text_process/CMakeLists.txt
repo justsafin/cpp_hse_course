@@ -13,4 +13,4 @@ target_compile_options(${TEXT_PROCESS_LIBNAME} PRIVATE ${TORCH_CXX_FLAGS})
 target_include_directories(${TEXT_PROCESS_LIBNAME} PRIVATE
     ${CMAKE_SOURCE_DIR}/third-party/sentencepiece/src
 )
-target_link_libraries(${TEXT_PROCESS_LIBNAME} PRIVATE ${TORCH_LIBRARIES} sentencepiece-static)
+target_link_libraries(${TEXT_PROCESS_LIBNAME} PRIVATE ${TORCH_LIBRARIES} sentencepiece)
