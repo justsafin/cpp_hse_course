@@ -23,8 +23,14 @@ public:
         }
         tokenizer_.SetEncodeExtraOptions("bos:eos");
 
+        torch::set_num_threads(1);
+
         model_ = torch::jit::load(pt_path.data());
         emb_size_ = Encode("Test text").size();
+
+        // Прогрев
+        for (std::size_t i = 0; i < 20; i++)
+            Encode("gogogo");
     }
 
     std::vector<float> Encode(std::string_view text)
