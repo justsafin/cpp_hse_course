@@ -4,3 +4,8 @@ bin
 projects/protogen/cpp
 projects/protogen/py
 __pycache__
+scripts/simple_load/bin
+scripts/simple_load/include
+scripts/simple_load/lib
+scripts/simple_load/lib64
+kolok/
