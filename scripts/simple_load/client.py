@@ -43,7 +43,8 @@ def fetch_data(socket, buffer_size=4096):
     return response
 
 
-def calculate_stistics(response_times):
+def calculate_stistics(response_times, errors_c):
+    print("RESULTS:")
     mean = sum(response_times, timedelta())/len(response_times)
     print(f"avg_time = {mean}")
     max_time = max(response_times)
@@ -52,7 +53,8 @@ def calculate_stistics(response_times):
     print(f"min_time = {min_time}")
 
     rps = 1/(mean.microseconds) * 1000000
-    print(f"{rps=}")
+    print(f"rps = {rps}")
+    print(f"errors_count = {errors_c}")
 
 def main():
     host = "localhost"
@@ -75,7 +77,7 @@ def main():
                     response = fetch_data(s)
                     response_times.append(timedelta(seconds=timer()-start))
                     decodet_data = decode_data(response)
-                    # print("data ", decodet_data)
+                    print(c)
             except socket.timeout:
                 errors_c += 1    
             finally:
@@ -84,7 +86,7 @@ def main():
         print("Client exited")
     finally:
         file.close()
-        calculate_stistics(response_times)
+        calculate_stistics(response_times, errors_c)
 
 
 if __name__ == "__main__":
