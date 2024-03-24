@@ -4,7 +4,7 @@
 # Считает, что запрос - 1 строка, и сервер понимает \n как разделитель
 # Аналогично, ответы делит тоже по \n
 
-Z='INFO'
+Z='DEBUG'
 Y=False
 X='store_true'
 W=Exception
@@ -24,7 +24,7 @@ C.add_argument('--parallel',type=N,default=A,help='Count of threads for loading'
 C.add_argument('--timeout',type=N,default=A,help='Timeout of w+r operations')
 C.add_argument('--keepalive',action=X,default=A,help='Do drop connection in client')
 C.add_argument('--infinite',default=Y,action=X,help='Make an infinite cycle from input file')
-C.add_argument('--loglevel',default=Z,choices=['DEBUG',Z,'WARNING','ERROR','CRITICAL'],help='Set the logging level')
+C.add_argument('--loglevel',default=Z,choices=[Z,'INFO','WARNING','ERROR','CRITICAL'],help='Set the logging level')
 C.add_argument('input_file',type=str,help='File with queries, line by line')
 B=C.parse_args()
 if B.rate is not A and B.parallel is not A:raise Q('Cannot specify --rate and --parallel simultaniously!')
@@ -47,7 +47,16 @@ H=0
 M=0
 D=[]
 G=dict()
-async def d(reader,writer,q,q_num):B=b'\n';A=writer;A.write(q.encode('utf-8')+B);await A.drain();D=1024;C=await reader.readuntil(B);return C
+
+async def d(reader,writer,q,q_num):
+	B=b'\n'
+	A=writer
+	A.write(q.encode('utf-8')+B)
+	await A.drain()
+	D=1024
+	C=await reader.readline()
+	return C
+
 async def e(clid):
 	global H,M;C,P=A,A
 	for(J,Q)in c:
@@ -60,7 +69,9 @@ async def e(clid):
 			except W as K:F.error(f"{J}: Error open connection: {K}");H+=1;continue
 		try:
 			if B.keepalive:R=E.datetime.now()
-			S=await L.wait_for(d(P,C,Q,J),B.timeout);D.append((E.datetime.now()-R).total_seconds()*1000);F.info(f"{J}: Success in {D[-1]} ms, data = {S}")
+			S=await L.wait_for(d(P,C,Q,J),B.timeout)
+			D.append((E.datetime.now()-R).total_seconds()*1000)
+			F.info(f"{J}: Success in {D[-1]} ms")
 		except TimeoutError as K:F.warning(f"{J}: Timeout: {K}");M+=1
 		except W as K:F.error(f"{J}: Error during i/o: {K}");H+=1
 	if C is not A:
