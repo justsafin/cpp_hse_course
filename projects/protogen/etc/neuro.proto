@@ -11,7 +11,6 @@ message NeuroRequest
 message NeuroAnswer
 {
     uint32 qid               = 1; // Соответствует NeuroRequest::qid
-
     repeated float embedding = 2;
     string error             = 3; // Заполняется, если произошла ошибка (embedding тогда пустой)
 }

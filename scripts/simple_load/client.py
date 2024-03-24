@@ -56,6 +56,7 @@ def calculate_stistics(response_times, errors_c):
     print(f"rps = {rps}")
     print(f"errors_count = {errors_c}")
 
+
 def main():
     host = "localhost"
     port = 12345
@@ -64,20 +65,22 @@ def main():
     errors_c = 0
 
     try:
-        file = open("text_data.txt", "r")
+        # file = open("text_data.txt", "r")
+        file = open("pb_data.txt", "r")
         line = file.readline()
         while line:
             c += 1
             try:
-                b64_line = encode_data(c, line) + b"\n"
+                # b64_line = encode_data(c, line) + b"\n"
                 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                     start = timer()
                     s.connect((host, port))
-                    s.sendall(b64_line)
+                    # s.sendall(b64_line)
+                    s.sendall(line.encode("utf-8"))
                     response = fetch_data(s)
                     response_times.append(timedelta(seconds=timer()-start))
                     decodet_data = decode_data(response)
-                    print(c)
+                    print(line)
             except socket.timeout:
                 errors_c += 1    
             finally:
